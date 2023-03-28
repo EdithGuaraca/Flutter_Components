@@ -10,6 +10,7 @@ class SliderScreen extends StatefulWidget {
 
 class _SliderScreenState extends State<SliderScreen> {
   double _sliderValue = 100;
+  bool _sliderEnable = true;
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +26,37 @@ class _SliderScreenState extends State<SliderScreen> {
               max: 400,
               activeColor: AppTheme.primary,
               value: _sliderValue,
-              onChanged: (value) {
-                _sliderValue = value;
+              onChanged: _sliderEnable
+                  ? (value) {
+                      _sliderValue = value;
 
-                print(value);
+                      print(value);
+                      setState(() {});
+                    }
+                  : null,
+            ),
+
+            //checkBox
+
+            Checkbox(
+              value: _sliderEnable,
+              onChanged: (value) {
+                _sliderEnable = value ?? true;
                 setState(() {});
               },
             ),
+
+            CheckboxListTile(
+              activeColor: AppTheme.primary,
+              title: Text('habilitar slider'),
+              value: _sliderEnable,
+              onChanged: (value) {
+                setState(() {
+                  _sliderEnable = value ?? true;
+                });
+              },
+            ),
+
             Expanded(
               child: SingleChildScrollView(
                 child: Image(
